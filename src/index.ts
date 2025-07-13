@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import { createLogger } from './config/logger';
 import { EnvType, validateEnvironmentVariables } from './config/config';
+import { initalizePrisma } from './config/db';
 
 // ======= Bootstrap the application =======
 
@@ -13,6 +14,9 @@ export const logger = createLogger(true);
 
 // Pass the critcal (required) environment variables through a validation schema to ensure they are set and correct
 export const cfg: EnvType = validateEnvironmentVariables();
+
+// ===== Create a database connection =====
+export const prisma = await initalizePrisma();
 
 // ===== Start the HTTP server and listen for requests =====
 export const app = express();
